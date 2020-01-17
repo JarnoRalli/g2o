@@ -3,6 +3,13 @@ add_library(types_sim3 ${G2O_LIB_TYPE}
   types_seven_dof_expmap.h
 )
 
+target_include_directories(types_sim3
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/types/sim3>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(types_sim3 PROPERTIES OUTPUT_NAME ${LIB_PREFIX}types_sim3)
 if (APPLE)
   set_target_properties(types_sim3 PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

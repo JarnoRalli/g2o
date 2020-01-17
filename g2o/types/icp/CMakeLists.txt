@@ -3,6 +3,13 @@ add_library(types_icp ${G2O_LIB_TYPE}
   g2o_types_icp_api.h
 )
 
+target_include_directories(types_icp
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/types/icp>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(types_icp PROPERTIES OUTPUT_NAME ${LIB_PREFIX}types_icp)
 if (APPLE)
   set_target_properties(types_icp PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

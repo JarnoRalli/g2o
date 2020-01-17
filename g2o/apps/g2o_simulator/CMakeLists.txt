@@ -12,7 +12,6 @@ add_library(g2o_simulator_library ${G2O_LIB_TYPE}
    sensor_segment2d_line.cpp  sensor_segment2d_line.h
    sensor_segment2d_pointline.cpp  sensor_segment2d_pointline.h
 
-   
    simulator3d_base.h    simulator3d.h
    sensor_odometry3d.cpp sensor_odometry3d.h
    sensor_pose3d.cpp sensor_pose3d.h
@@ -24,6 +23,13 @@ add_library(g2o_simulator_library ${G2O_LIB_TYPE}
 
    g2o_simulator_api.h
 )
+
+target_include_directories(g2o_simulator_library
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/apps/g2o_simulator>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
 
 set_target_properties(g2o_simulator_library PROPERTIES OUTPUT_NAME ${LIB_PREFIX}simulator)
 if (APPLE)

@@ -2,6 +2,13 @@ add_library(solver_dense ${G2O_LIB_TYPE}
   solver_dense.cpp linear_solver_dense.h
 )
 
+target_include_directories(solver_dense
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/solvers/dense>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(solver_dense PROPERTIES OUTPUT_NAME ${LIB_PREFIX}solver_dense)
 if (APPLE)
   set_target_properties(solver_dense PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

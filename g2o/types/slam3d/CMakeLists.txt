@@ -39,6 +39,12 @@ add_library(types_slam3d ${G2O_LIB_TYPE}
   types_slam3d.h
 )
 
+target_include_directories(types_slam3d
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/types/slam3d>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
 
 set_target_properties(types_slam3d PROPERTIES OUTPUT_NAME ${LIB_PREFIX}types_slam3d)
 if (APPLE)

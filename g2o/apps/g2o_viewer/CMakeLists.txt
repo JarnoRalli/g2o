@@ -21,6 +21,14 @@ add_library(viewer_library ${G2O_LIB_TYPE}
   run_g2o_viewer.cpp run_g2o_viewer.h
   ${UI_HEADERS} ${UI_SOURCES}
 )
+
+target_include_directories(viewer_library
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/apps/g2o_viewer>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(viewer_library PROPERTIES OUTPUT_NAME ${LIB_PREFIX}viewer)
 if (APPLE)
   set_target_properties(viewer_library PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

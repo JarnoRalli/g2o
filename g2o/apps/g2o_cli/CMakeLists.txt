@@ -5,6 +5,13 @@ add_library(g2o_cli_library ${G2O_LIB_TYPE}
   g2o_cli_api.h
 )
 
+target_include_directories(g2o_cli_library
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/apps/g2o_cli>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(g2o_cli_library PROPERTIES OUTPUT_NAME ${LIB_PREFIX}cli)
 if (APPLE)
   set_target_properties(g2o_cli_library PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

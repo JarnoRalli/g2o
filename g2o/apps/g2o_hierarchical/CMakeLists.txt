@@ -15,6 +15,12 @@ add_library(g2o_hierarchical_library ${G2O_LIB_TYPE}
   g2o_hierarchical_api.h
 )
 
+target_include_directories(g2o_hierarchical_library
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/apps/g2o_hierarchical>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
 
 set_target_properties(g2o_hierarchical_library PROPERTIES OUTPUT_NAME ${LIB_PREFIX}hierarchical)
 if (APPLE)

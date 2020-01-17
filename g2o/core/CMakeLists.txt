@@ -39,6 +39,13 @@ robust_kernel_factory.cpp robust_kernel_factory.h
 g2o_core_api.h
 )
 
+target_include_directories(core
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/core>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(core PROPERTIES OUTPUT_NAME ${LIB_PREFIX}core)
 target_link_libraries(core PUBLIC stuff ${G2O_EIGEN3_EIGEN_TARGET})
 

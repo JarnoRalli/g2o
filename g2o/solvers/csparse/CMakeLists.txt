@@ -9,6 +9,14 @@ add_library(csparse_extension ${G2O_LGPL_LIB_TYPE}
   csparse_extension.cpp csparse_extension.h
   g2o_csparse_extension_api.h
 )
+
+target_include_directories(csparse_extension
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/solvers/csparse>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(csparse_extension PROPERTIES OUTPUT_NAME ${LIB_PREFIX}csparse_extension)
 if (APPLE)
   set_target_properties(csparse_extension PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")
@@ -25,6 +33,14 @@ add_library(solver_csparse ${G2O_LIB_TYPE}
   linear_solver_csparse.h
   g2o_csparse_api.h
 )
+
+target_include_directories(solver_csparse
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/solvers/csparse>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(solver_csparse PROPERTIES OUTPUT_NAME ${LIB_PREFIX}solver_csparse)
 if (APPLE)
   set_target_properties(solver_csparse PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

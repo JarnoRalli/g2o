@@ -10,6 +10,13 @@ add_library(stuff ${G2O_LIB_TYPE}
   g2o_stuff_api.h
 )
 
+target_include_directories(stuff
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/stuff>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(stuff PROPERTIES OUTPUT_NAME ${LIB_PREFIX}stuff)
 target_link_libraries(stuff PUBLIC ${G2O_EIGEN3_EIGEN_TARGET})
 
@@ -29,17 +36,26 @@ install(TARGETS stuff
 if(OPENGL_FOUND AND G2O_HAVE_OPENGL)
   add_library(opengl_helper ${G2O_LIB_TYPE}
     opengl_primitives.cpp opengl_primitives.h
-    )
+  )
+  
+  target_include_directories(opengl_helper
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/stuff>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+  
   if (APPLE)
-  set_target_properties(opengl_helper PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")
-endif()
+    set_target_properties(opengl_helper PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+  endif()
+  
   install(TARGETS opengl_helper
     EXPORT ${G2O_TARGETS_EXPORT_NAME}
     RUNTIME DESTINATION ${RUNTIME_DESTINATION}
     LIBRARY DESTINATION ${LIBRARY_DESTINATION}
     ARCHIVE DESTINATION ${ARCHIVE_DESTINATION}
     INCLUDES DESTINATION ${INCLUDES_DESTINATION}
-    )
+  )
 
   target_link_libraries(opengl_helper PUBLIC ${G2O_OPENGL_TARGET} ${G2O_EIGEN3_EIGEN_TARGET})
   set_target_properties(opengl_helper PROPERTIES OUTPUT_NAME "${LIB_PREFIX}opengl_helper")

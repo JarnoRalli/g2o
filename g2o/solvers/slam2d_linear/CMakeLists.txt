@@ -8,7 +8,13 @@ add_library(solver_slam2d_linear ${G2O_LIB_TYPE}
   g2o_slam2d_linear_api.h
 )
 
-include_directories(${CSPARSE_INCLUDE_DIR})
+target_include_directories(solver_slam2d_linear
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/solvers/slam2d_linear>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                    $<BUILD_INTERFACE:${CSPARSE_INCLUDE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
 
 set_target_properties(solver_slam2d_linear PROPERTIES OUTPUT_NAME ${LIB_PREFIX}solver_slam2d_linear)
 if (APPLE)

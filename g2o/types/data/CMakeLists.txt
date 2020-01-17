@@ -10,6 +10,13 @@ add_library(types_data ${G2O_LIB_TYPE}
   g2o_types_data_api.h
 )
 
+target_include_directories(types_data
+                PUBLIC
+                    $<INSTALL_INTERFACE:${INCLUDES_INSTALL_DIR}/types/data>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(types_data PROPERTIES OUTPUT_NAME ${LIB_PREFIX}types_data)
 if (APPLE)
   set_target_properties(types_data PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")

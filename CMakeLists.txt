@@ -69,10 +69,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${g2o_LIBRARY_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${g2o_RUNTIME_OUTPUT_DIRECTORY})
 
 # Set standard installation directories
-set(RUNTIME_DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-set(LIBRARY_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-set(ARCHIVE_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-set(INCLUDES_DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+include(GNUInstallDirs)
+set(RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR})
+set(LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set(ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set(INCLUDES_DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 set(INCLUDES_INSTALL_DIR ${INCLUDES_DESTINATION}/g2o)
 
 # Set search directory for looking for our custom CMake scripts to
@@ -81,6 +82,8 @@ list(APPEND CMAKE_MODULE_PATH ${g2o_SOURCE_DIR}/cmake_modules)
 
 # Detect OS and define macros appropriately
 if(WIN32)
+  #Build in parallel in Visual Studio
+  add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
   add_definitions(-DWINDOWS)
   message(STATUS "Compiling on Windows")
 elseif(CYGWIN)
